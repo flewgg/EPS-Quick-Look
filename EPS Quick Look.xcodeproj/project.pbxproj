@@ -1,0 +1,962 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		734D01082F90000000A0D6EC /* parser in Resources */ = {isa = PBXBuildFile; fileRef = 734D010A2F90000000A0D6EC /* parser */; };
+		734D01092F90000000A0D6EC /* parser in Resources */ = {isa = PBXBuildFile; fileRef = 734D010A2F90000000A0D6EC /* parser */; };
+		7368C4E32F822A4500EC9C77 /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7368C4E22F822A4500EC9C77 /* QuickLookThumbnailing.framework */; };
+		7368C4E42F822A4500EC9C77 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D8840C2F7FF1E9009B0644 /* Quartz.framework */; };
+		7368C4EB2F822A4500EC9C77 /* EPS Thumbnail Generator.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7368C4E12F822A4500EC9C77 /* EPS Thumbnail Generator.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		73A1000B2F9C000000000001 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A1000A2F9C000000000001 /* XCTest.framework */; };
+		73D8840D2F7FF1E9009B0644 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D8840C2F7FF1E9009B0644 /* Quartz.framework */; };
+		73D884192F7FF1E9009B0644 /* EPS Quick Look Preview.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 73D8840A2F7FF1E9009B0644 /* EPS Quick Look Preview.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		73D887AE2F80D028009B0644 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 73D887AD2F80D028009B0644 /* Sparkle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7368C4E92F822A4500EC9C77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 73D883EE2F7FEAD8009B0644 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7368C4E02F822A4500EC9C77;
+			remoteInfo = "EPS Thumbnail Generator";
+		};
+		73D884172F7FF1E9009B0644 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 73D883EE2F7FEAD8009B0644 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73D884092F7FF1E9009B0644;
+			remoteInfo = "EPS Quick Look Preview";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		73D8841E2F7FF1E9009B0644 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7368C4EB2F822A4500EC9C77 /* EPS Thumbnail Generator.appex in Embed Foundation Extensions */,
+				73D884192F7FF1E9009B0644 /* EPS Quick Look Preview.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		734D010A2F90000000A0D6EC /* parser */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = parser; sourceTree = "<group>"; };
+		7368C4E12F822A4500EC9C77 /* EPS Thumbnail Generator.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "EPS Thumbnail Generator.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7368C4E22F822A4500EC9C77 /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
+		73A100022F9C000000000001 /* EPS Quick Look Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EPS Quick Look Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73A1000A2F9C000000000001 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
+		73D883F62F7FEAD8009B0644 /* EPS Quick Look.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EPS Quick Look.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73D8840A2F7FF1E9009B0644 /* EPS Quick Look Preview.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "EPS Quick Look Preview.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73D8840C2F7FF1E9009B0644 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		734D010C2F90000000A0D6EC /* Exceptions for "App" folder in "EPS Quick Look" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				SparkleInfo.plist,
+			);
+			target = 73D883F52F7FEAD8009B0644 /* EPS Quick Look */;
+		};
+		734D010D2F90000000A0D6EC /* Exceptions for "Shared" folder in "EPS Quick Look" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				EPSBoundingBoxParser.swift,
+				GhostscriptDocumentRenderer.swift,
+			);
+			target = 73D883F52F7FEAD8009B0644 /* EPS Quick Look */;
+		};
+		734D010E2F90000000A0D6EC /* Exceptions for "Shared" folder in "EPS Quick Look Tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				GhostscriptDocumentRenderer.swift,
+			);
+			target = 73A100012F9C000000000001 /* EPS Quick Look Tests */;
+		};
+		7368C4EE2F822A4500EC9C77 /* Exceptions for "Thumbnail" folder in "EPS Thumbnail Generator" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7368C4E02F822A4500EC9C77 /* EPS Thumbnail Generator */;
+		};
+		73D8841A2F7FF1E9009B0644 /* Exceptions for "Preview" folder in "EPS Quick Look Preview" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 73D884092F7FF1E9009B0644 /* EPS Quick Look Preview */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		733295EC2F9BB118000F638B /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				734D010D2F90000000A0D6EC /* Exceptions for "Shared" folder in "EPS Quick Look" target */,
+				734D010E2F90000000A0D6EC /* Exceptions for "Shared" folder in "EPS Quick Look Tests" target */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		7368C4E52F822A4500EC9C77 /* Thumbnail */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7368C4EE2F822A4500EC9C77 /* Exceptions for "Thumbnail" folder in "EPS Thumbnail Generator" target */,
+			);
+			path = Thumbnail;
+			sourceTree = "<group>";
+		};
+		73A100092F9C000000000001 /* Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		73D883F82F7FEAD8009B0644 /* App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				734D010C2F90000000A0D6EC /* Exceptions for "App" folder in "EPS Quick Look" target */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		73D8840E2F7FF1E9009B0644 /* Preview */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				73D8841A2F7FF1E9009B0644 /* Exceptions for "Preview" folder in "EPS Quick Look Preview" target */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7368C4DE2F822A4500EC9C77 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7368C4E32F822A4500EC9C77 /* QuickLookThumbnailing.framework in Frameworks */,
+				7368C4E42F822A4500EC9C77 /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73A100042F9C000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73A1000B2F9C000000000001 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73D883F32F7FEAD8009B0644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73D887AE2F80D028009B0644 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73D884072F7FF1E9009B0644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73D8840D2F7FF1E9009B0644 /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		733295ED2F9BB118000F638B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				73D8840E2F7FF1E9009B0644 /* Preview */,
+				7368C4E52F822A4500EC9C77 /* Thumbnail */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		733295EE2F9BB118000F638B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				734D010A2F90000000A0D6EC /* parser */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		73D883ED2F7FEAD8009B0644 = {
+			isa = PBXGroup;
+			children = (
+				73D883F82F7FEAD8009B0644 /* App */,
+				733295ED2F9BB118000F638B /* Extensions */,
+				733295EC2F9BB118000F638B /* Shared */,
+				73A100092F9C000000000001 /* Tests */,
+				733295EE2F9BB118000F638B /* Resources */,
+				73D8840B2F7FF1E9009B0644 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		73D883F72F7FEAD8009B0644 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				73D883F62F7FEAD8009B0644 /* EPS Quick Look.app */,
+				73D8840A2F7FF1E9009B0644 /* EPS Quick Look Preview.appex */,
+				7368C4E12F822A4500EC9C77 /* EPS Thumbnail Generator.appex */,
+				73A100022F9C000000000001 /* EPS Quick Look Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		73D8840B2F7FF1E9009B0644 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				73D8840C2F7FF1E9009B0644 /* Quartz.framework */,
+				7368C4E22F822A4500EC9C77 /* QuickLookThumbnailing.framework */,
+				73A1000A2F9C000000000001 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7368C4E02F822A4500EC9C77 /* EPS Thumbnail Generator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7368C4EF2F822A4500EC9C77 /* Build configuration list for PBXNativeTarget "EPS Thumbnail Generator" */;
+			buildPhases = (
+				7368C4DD2F822A4500EC9C77 /* Sources */,
+				7368C4DE2F822A4500EC9C77 /* Frameworks */,
+				7368C4DF2F822A4500EC9C77 /* Resources */,
+				734D01112F90000000A0D6EC /* Sign Ghostscript Parser */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				733295EC2F9BB118000F638B /* Shared */,
+				7368C4E52F822A4500EC9C77 /* Thumbnail */,
+			);
+			name = "EPS Thumbnail Generator";
+			packageProductDependencies = (
+			);
+			productName = "EPS Thumbnail Generator";
+			productReference = 7368C4E12F822A4500EC9C77 /* EPS Thumbnail Generator.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		73A100012F9C000000000001 /* EPS Quick Look Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73A100062F9C000000000001 /* Build configuration list for PBXNativeTarget "EPS Quick Look Tests" */;
+			buildPhases = (
+				73A100032F9C000000000001 /* Sources */,
+				73A100042F9C000000000001 /* Frameworks */,
+				73A100052F9C000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				733295EC2F9BB118000F638B /* Shared */,
+				73A100092F9C000000000001 /* Tests */,
+			);
+			name = "EPS Quick Look Tests";
+			packageProductDependencies = (
+			);
+			productName = "EPS Quick Look Tests";
+			productReference = 73A100022F9C000000000001 /* EPS Quick Look Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		73D883F52F7FEAD8009B0644 /* EPS Quick Look */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73D884012F7FEAD9009B0644 /* Build configuration list for PBXNativeTarget "EPS Quick Look" */;
+			buildPhases = (
+				73D883F22F7FEAD8009B0644 /* Sources */,
+				73D883F32F7FEAD8009B0644 /* Frameworks */,
+				73D883F42F7FEAD8009B0644 /* Resources */,
+				73D8841E2F7FF1E9009B0644 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				73D884182F7FF1E9009B0644 /* PBXTargetDependency */,
+				7368C4EA2F822A4500EC9C77 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				733295EC2F9BB118000F638B /* Shared */,
+				73D883F82F7FEAD8009B0644 /* App */,
+			);
+			name = "EPS Quick Look";
+			packageProductDependencies = (
+				73D887AD2F80D028009B0644 /* Sparkle */,
+			);
+			productName = "EPS Quick Look";
+			productReference = 73D883F62F7FEAD8009B0644 /* EPS Quick Look.app */;
+			productType = "com.apple.product-type.application";
+		};
+		73D884092F7FF1E9009B0644 /* EPS Quick Look Preview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73D8841B2F7FF1E9009B0644 /* Build configuration list for PBXNativeTarget "EPS Quick Look Preview" */;
+			buildPhases = (
+				73D884062F7FF1E9009B0644 /* Sources */,
+				73D884072F7FF1E9009B0644 /* Frameworks */,
+				73D884082F7FF1E9009B0644 /* Resources */,
+				734D01102F90000000A0D6EC /* Sign Ghostscript Parser */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				733295EC2F9BB118000F638B /* Shared */,
+				73D8840E2F7FF1E9009B0644 /* Preview */,
+			);
+			name = "EPS Quick Look Preview";
+			packageProductDependencies = (
+			);
+			productName = "EPS Quick Look Preview";
+			productReference = 73D8840A2F7FF1E9009B0644 /* EPS Quick Look Preview.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		73D883EE2F7FEAD8009B0644 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2640;
+				LastUpgradeCheck = 2640;
+				TargetAttributes = {
+					7368C4E02F822A4500EC9C77 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					73A100012F9C000000000001 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					73D883F52F7FEAD8009B0644 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					73D884092F7FF1E9009B0644 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+				};
+			};
+			buildConfigurationList = 73D883F12F7FEAD8009B0644 /* Build configuration list for PBXProject "EPS Quick Look" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 73D883ED2F7FEAD8009B0644;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				73D887AC2F80D028009B0644 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 73D883F72F7FEAD8009B0644 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				73D883F52F7FEAD8009B0644 /* EPS Quick Look */,
+				73D884092F7FF1E9009B0644 /* EPS Quick Look Preview */,
+				7368C4E02F822A4500EC9C77 /* EPS Thumbnail Generator */,
+				73A100012F9C000000000001 /* EPS Quick Look Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7368C4DF2F822A4500EC9C77 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				734D01082F90000000A0D6EC /* parser in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73A100052F9C000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73D883F42F7FEAD8009B0644 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73D884082F7FF1E9009B0644 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				734D01092F90000000A0D6EC /* parser in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		734D01102F90000000A0D6EC /* Sign Ghostscript Parser */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/parser",
+			);
+			name = "Sign Ghostscript Parser";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/parser",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/parser.cstemp",
+				"$(DERIVED_FILE_DIR)/SignGhostscriptParser.stamp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\nparser_path=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/parser\"\nstamp_path=\"${DERIVED_FILE_DIR}/SignGhostscriptParser.stamp\"\n\nif [ ! -f \"$parser_path\" ]; then\n    echo \"warning: Ghostscript parser not found at $parser_path\"\n    exit 0\nfi\n\nif [ \"${CODE_SIGNING_ALLOWED:-NO}\" != \"YES\" ]; then\n    exit 0\nfi\n\nsign_identity=\"${EXPANDED_CODE_SIGN_IDENTITY:-}\"\nif [ -z \"$sign_identity\" ]; then\n    sign_identity=\"-\"\nfi\n\n/usr/bin/codesign --force --sign \"$sign_identity\" --options runtime \"$parser_path\"\n: > \"$stamp_path\"\n";
+		};
+		734D01112F90000000A0D6EC /* Sign Ghostscript Parser */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/parser",
+			);
+			name = "Sign Ghostscript Parser";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/parser",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/parser.cstemp",
+				"$(DERIVED_FILE_DIR)/SignGhostscriptParser.stamp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\nparser_path=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/parser\"\nstamp_path=\"${DERIVED_FILE_DIR}/SignGhostscriptParser.stamp\"\n\nif [ ! -f \"$parser_path\" ]; then\n    echo \"warning: Ghostscript parser not found at $parser_path\"\n    exit 0\nfi\n\nif [ \"${CODE_SIGNING_ALLOWED:-NO}\" != \"YES\" ]; then\n    exit 0\nfi\n\nsign_identity=\"${EXPANDED_CODE_SIGN_IDENTITY:-}\"\nif [ -z \"$sign_identity\" ]; then\n    sign_identity=\"-\"\nfi\n\n/usr/bin/codesign --force --sign \"$sign_identity\" --options runtime \"$parser_path\"\n: > \"$stamp_path\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7368C4DD2F822A4500EC9C77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73A100032F9C000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73D883F22F7FEAD8009B0644 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73D884062F7FF1E9009B0644 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7368C4EA2F822A4500EC9C77 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7368C4E02F822A4500EC9C77 /* EPS Thumbnail Generator */;
+			targetProxy = 7368C4E92F822A4500EC9C77 /* PBXContainerItemProxy */;
+		};
+		73D884182F7FF1E9009B0644 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73D884092F7FF1E9009B0644 /* EPS Quick Look Preview */;
+			targetProxy = 73D884172F7FF1E9009B0644 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7368C4EC2F822A4500EC9C77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extensions/Thumbnail/EPS_Thumbnail_Generator.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Extensions/Thumbnail/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "EPS Thumbnail Generator";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.flew.eps.thumbnail;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7368C4ED2F822A4500EC9C77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extensions/Thumbnail/EPS_Thumbnail_Generator.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Extensions/Thumbnail/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "EPS Thumbnail Generator";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.flew.eps.thumbnail;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		73A100072F9C000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.flew.eps.tests;
+				PRODUCT_MODULE_NAME = EPS_Quick_Look_Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		73A100082F9C000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.flew.eps.tests;
+				PRODUCT_MODULE_NAME = EPS_Quick_Look_Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		73D883FF2F7FEAD9009B0644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		73D884002F7FEAD9009B0644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		73D884022F7FEAD9009B0644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/EPS_Quick_Look.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/SparkleInfo.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.flew.eps;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		73D884032F7FEAD9009B0644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/EPS_Quick_Look.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/SparkleInfo.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.flew.eps;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		73D8841C2F7FF1E9009B0644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extensions/Preview/EPS_Quick_Look_Preview.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Extensions/Preview/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "EPS Quick Look Preview";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.flew.eps.preview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		73D8841D2F7FF1E9009B0644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extensions/Preview/EPS_Quick_Look_Preview.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXDS8WGFWL;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Extensions/Preview/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "EPS Quick Look Preview";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.flew.eps.preview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7368C4EF2F822A4500EC9C77 /* Build configuration list for PBXNativeTarget "EPS Thumbnail Generator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7368C4EC2F822A4500EC9C77 /* Debug */,
+				7368C4ED2F822A4500EC9C77 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73A100062F9C000000000001 /* Build configuration list for PBXNativeTarget "EPS Quick Look Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73A100072F9C000000000001 /* Debug */,
+				73A100082F9C000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73D883F12F7FEAD8009B0644 /* Build configuration list for PBXProject "EPS Quick Look" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73D883FF2F7FEAD9009B0644 /* Debug */,
+				73D884002F7FEAD9009B0644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73D884012F7FEAD9009B0644 /* Build configuration list for PBXNativeTarget "EPS Quick Look" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73D884022F7FEAD9009B0644 /* Debug */,
+				73D884032F7FEAD9009B0644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73D8841B2F7FF1E9009B0644 /* Build configuration list for PBXNativeTarget "EPS Quick Look Preview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73D8841C2F7FF1E9009B0644 /* Debug */,
+				73D8841D2F7FF1E9009B0644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		73D887AC2F80D028009B0644 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		73D887AD2F80D028009B0644 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73D887AC2F80D028009B0644 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 73D883EE2F7FEAD8009B0644 /* Project object */;
+}

@@ -1,0 +1,25 @@
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+# Local tooling
+.codex-build-home/
+.claude/
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Archives & distribution
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcarchive
+
+# Sparkle
+*.delta
+*.dmg
