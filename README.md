@@ -2,7 +2,7 @@
 
 EPS Quick Look is a macOS app and Quick Look extension for previewing EPS and PostScript files in Finder. It also generates thumbnails for EPS files.
 
-![EPS Quick Look preview](assets/preview.png)
+![EPS Quick Look preview](assets/Demo.png)
 
 ## Install
 
