@@ -12,7 +12,7 @@ Download [directly from Codeberg](https://codeberg.org/flew/EPS-Quick-Look/relea
 
 ## Requirements
 
-- macOS 26.0 (Tahoe) or later
+- macOS 15.6 (Sequoia) or later
 
 ## Join Discord
 
