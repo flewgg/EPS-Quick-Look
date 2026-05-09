@@ -6,9 +6,12 @@ EPS Quick Look is a macOS app and Quick Look extension for previewing EPS and Po
 
 ## Install
 
-Download [directly from Codeberg](https://codeberg.org/flew/EPS-Quick-Look/releases).
-> [!NOTE]
-> Howbrew support will be added soon. 
+Homebrew:
+```bash
+brew install --cask flewgg/tap/eps-quick-look
+```
+
+or Download [directly from Codeberg](https://codeberg.org/flew/EPS-Quick-Look/releases).
 
 ## Requirements
 
