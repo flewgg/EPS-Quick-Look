@@ -15,7 +15,6 @@ struct RenderedPDFPreview {
 struct RenderedPDFPage {
     let document: PDFDocument
     let page: PDFPage
-    let displayBox: PDFDisplayBox
     let pageRect: CGRect
 }
 
@@ -146,12 +145,12 @@ final class GhostscriptDocumentRenderer {
 
         let (document, page) = try loadFirstPage(from: normalizedOutput.url)
 
-        let (displayBox, pageRect) = preferredDisplayBox(for: page)
+        let (_, pageRect) = preferredDisplayBox(for: page)
         guard pageRect.width > 0, pageRect.height > 0 else {
             throw GhostscriptRenderingError.invalidRenderedPageSize
         }
 
-        return RenderedPDFPage(document: document, page: page, displayBox: displayBox, pageRect: pageRect)
+        return RenderedPDFPage(document: document, page: page, pageRect: pageRect)
     }
 
     private func renderNormalizedFirstPage(for fileURL: URL) throws -> NormalizedPDFOutput {
