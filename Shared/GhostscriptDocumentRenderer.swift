@@ -284,36 +284,16 @@ final class GhostscriptDocumentRenderer {
         sourceBoundingBox: EPSBoundingBox?
     ) -> PDFNormalizationStrategy? {
         let (displayBox, pageRect) = preferredDisplayBox(for: page)
-        let mediaBoxRect = normalizedRect(page.bounds(for: .mediaBox))
-
-        if let sourceBoundingBox,
-           pageRect.width > 0,
-           pageRect.height > 0,
-           rectsApproximatelyEqual(pageRect, sourceBoundingBox.rect) {
-            return .pdfDisplayBox(displayBox: displayBox, rect: pageRect)
+        guard pageRect.width > 0, pageRect.height > 0 else {
+            return nil
         }
 
         if let sourceBoundingBox,
-           pageRect.width > 0,
-           pageRect.height > 0 {
+           !sizesApproximatelyEqual(pageRect.size, sourceBoundingBox.size) {
             return .epsBoundingBox(sourceBoundingBox)
         }
 
-        if let sourceBoundingBox,
-           mediaBoxRect.width > 0,
-           mediaBoxRect.height > 0 {
-            if rectsApproximatelyEqual(mediaBoxRect, sourceBoundingBox.rect) {
-                return .pdfDisplayBox(displayBox: .mediaBox, rect: mediaBoxRect)
-            }
-
-            return .epsBoundingBox(sourceBoundingBox)
-        }
-
-        if pageRect.width > 0, pageRect.height > 0 {
-            return .pdfDisplayBox(displayBox: displayBox, rect: pageRect)
-        }
-
-        return nil
+        return .pdfDisplayBox(displayBox: displayBox, rect: pageRect)
     }
 
     private func pdfContentSize(
@@ -407,12 +387,6 @@ final class GhostscriptDocumentRenderer {
 
     private func normalizedRect(_ rect: CGRect) -> CGRect {
         rect.standardized
-    }
-
-    private func rectsApproximatelyEqual(_ lhs: CGRect, _ rhs: CGRect, tolerance: CGFloat = 1) -> Bool {
-        abs(lhs.origin.x - rhs.origin.x) <= tolerance &&
-        abs(lhs.origin.y - rhs.origin.y) <= tolerance &&
-        sizesApproximatelyEqual(lhs.size, rhs.size, tolerance: tolerance)
     }
 
     private func sizesApproximatelyEqual(_ lhs: CGSize, _ rhs: CGSize, tolerance: CGFloat = 1) -> Bool {
