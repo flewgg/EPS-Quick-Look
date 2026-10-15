@@ -60,7 +60,7 @@ enum TemporaryCleanupIntervalOption: String, CaseIterable, Identifiable {
 }
 
 enum PreviewTemporaryStorage {
-    static let appGroupIdentifier = "group.com.flew.eps-quick-look"
+    static let appGroupIdentifier = "group.gg.flew.eps"
     static let temporaryCleanupIntervalDefaultsKey = "temporaryCleanupInterval"
 
     private static let managedTemporaryDirectoryName = "EPSQuickLook"
