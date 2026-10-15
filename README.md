@@ -11,7 +11,7 @@ Homebrew:
 brew install --cask flewgg/tap/eps-quick-look
 ```
 
-or Download [directly from Codeberg](https://codeberg.org/flew/EPS-Quick-Look/releases).
+or Download [directly from GitHub](https://github.com/flewgg/EPS-Quick-Look/releases/tag/v1.0.1).
 
 ## Requirements
 
