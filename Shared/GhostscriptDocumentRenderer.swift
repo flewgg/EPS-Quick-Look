@@ -155,7 +155,7 @@ final class GhostscriptDocumentRenderer {
 
     private func renderNormalizedFirstPage(for fileURL: URL) throws -> NormalizedPDFOutput {
         let sourceBoundingBox = try EPSBoundingBoxParser.boundingBox(for: fileURL)
-        let outputURL = try renderPDF(for: fileURL)
+        let outputURL = try renderPDF(for: fileURL, boundingBox: sourceBoundingBox)
         return try normalizedFirstPageOutput(
             from: outputURL,
             fallbackFileURL: fileURL,
@@ -172,7 +172,7 @@ final class GhostscriptDocumentRenderer {
         return (document, page)
     }
 
-    private func renderPDF(for fileURL: URL) throws -> URL {
+    private func renderPDF(for fileURL: URL, boundingBox: EPSBoundingBox?) throws -> URL {
         let parserPath = try parserExecutablePath()
 
         let ghostscript = try GhostscriptLibrary(parserPath: parserPath)
@@ -205,7 +205,7 @@ final class GhostscriptDocumentRenderer {
             "-dFirstPage=1",
             "-dLastPage=1",
             "-dAutoRotatePages=/None",
-        ] + bestPreviewQualityArguments() + [
+        ] + bestPreviewQualityArguments() + fallbackPageSizeArguments(for: boundingBox) + [
             "-sDEVICE=pdfwrite",
             fileURL.path,
         ]
@@ -236,6 +236,20 @@ final class GhostscriptDocumentRenderer {
             "-dEncodeGrayImages=true",
             "-dColorImageFilter=/FlateEncode",
             "-dGrayImageFilter=/FlateEncode",
+        ]
+    }
+
+    private func fallbackPageSizeArguments(for boundingBox: EPSBoundingBox?) -> [String] {
+        guard let boundingBox, boundingBox.rect.maxX > 0, boundingBox.rect.maxY > 0 else {
+            return []
+        }
+
+        let maximumPageDimension: CGFloat = 14400
+        let width = Int(min(boundingBox.rect.maxX.rounded(.up), maximumPageDimension))
+        let height = Int(min(boundingBox.rect.maxY.rounded(.up), maximumPageDimension))
+        return [
+            "-dDEVICEWIDTHPOINTS=\(width)",
+            "-dDEVICEHEIGHTPOINTS=\(height)",
         ]
     }
 
