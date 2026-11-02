@@ -201,12 +201,12 @@ final class GhostscriptDocumentRenderer {
             "-dNOPAUSE",
             "-dNOPROMPT",
             "-sOutputFile=\(outputURL.path)",
-            "-dEPSCrop",
             "-dFirstPage=1",
             "-dLastPage=1",
             "-dAutoRotatePages=/None",
-        ] + bestPreviewQualityArguments() + fallbackPageSizeArguments(for: boundingBox) + [
+        ] + bestPreviewQualityArguments() + [
             "-sDEVICE=pdfwrite",
+        ] + pagePlacementArguments(for: boundingBox) + [
             fileURL.path,
         ]
 
@@ -237,6 +237,22 @@ final class GhostscriptDocumentRenderer {
             "-dColorImageFilter=/FlateEncode",
             "-dGrayImageFilter=/FlateEncode",
         ]
+    }
+
+    private func pagePlacementArguments(for boundingBox: EPSBoundingBox?) -> [String] {
+        if let rect = boundingBox?.rect,
+           rect.minX < 0 || rect.minY < 0 {
+            return [
+                "-dDEVICEWIDTHPOINTS=\(rect.width)",
+                "-dDEVICEHEIGHTPOINTS=\(rect.height)",
+                "-dFIXEDMEDIA",
+                "-c",
+                "<</PageOffset [\(-rect.minX) \(-rect.minY)]>> setpagedevice",
+                "-f",
+            ]
+        }
+
+        return ["-dEPSCrop"] + fallbackPageSizeArguments(for: boundingBox)
     }
 
     private func fallbackPageSizeArguments(for boundingBox: EPSBoundingBox?) -> [String] {
