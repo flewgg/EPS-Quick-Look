@@ -60,6 +60,32 @@ final class EPSBoundingBoxParserTests: XCTestCase {
         XCTAssertFalse(result.sawBoundingBoxComment)
     }
 
+    func testHeaderParserUsesFirstBoundingBox() throws {
+        let data = data("""
+        %!PS-Adobe-3.0 EPSF-3.0
+        %%BoundingBox: 100 150 300 450
+        %%BoundingBox: 10 20 400 500
+        %%EndComments
+        """)
+
+        let result = EPSBoundingBoxParser.parseHeaderBoundingBox(from: data)
+
+        XCTAssertEqual(result.boundingBox?.rect, CGRect(x: 100, y: 150, width: 200, height: 300))
+    }
+
+    func testHeaderParserUsesFirstHiResBoundingBox() throws {
+        let data = data("""
+        %!PS-Adobe-3.0 EPSF-3.0
+        %%HiResBoundingBox: 100.5 150.5 299.5 449.5
+        %%HiResBoundingBox: 20 30 420 530
+        %%EndComments
+        """)
+
+        let result = EPSBoundingBoxParser.parseHeaderBoundingBox(from: data)
+
+        XCTAssertEqual(result.boundingBox?.rect, CGRect(x: 100.5, y: 150.5, width: 199, height: 299))
+    }
+
     func testTrailerParserUsesLastHiResBoundingBoxAfterTrailerMarker() throws {
         let data = data("""
         %%BoundingBox: 0 0 10 10

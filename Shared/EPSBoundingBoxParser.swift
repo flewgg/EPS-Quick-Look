@@ -33,21 +33,15 @@ private struct EPSBoundingBoxCandidates {
         return nil
     }
 
-    mutating func recordHiResBoundingBox(_ rect: CGRect?, replaceExisting: Bool = true) {
-        guard let rect else {
-            return
-        }
-        guard replaceExisting || hiResBoundingBox == nil else {
+    mutating func recordHiResBoundingBox(_ rect: CGRect?) {
+        guard hiResBoundingBox == nil else {
             return
         }
         hiResBoundingBox = rect
     }
 
-    mutating func recordStandardBoundingBox(_ rect: CGRect?, replaceExisting: Bool = true) {
-        guard let rect else {
-            return
-        }
-        guard replaceExisting || standardBoundingBox == nil else {
+    mutating func recordStandardBoundingBox(_ rect: CGRect?) {
+        guard standardBoundingBox == nil else {
             return
         }
         standardBoundingBox = rect
@@ -149,11 +143,11 @@ enum EPSBoundingBoxParser {
 
         for line in trailerLines.reversed() {
             if let parsed = parseBoundingBoxRect(from: line, prefix: EPSBoundingBoxComment.hiResBoundingBoxPrefix) {
-                candidates.recordHiResBoundingBox(parsed, replaceExisting: false)
+                candidates.recordHiResBoundingBox(parsed)
             }
 
             if let parsed = parseBoundingBoxRect(from: line, prefix: EPSBoundingBoxComment.boundingBoxPrefix) {
-                candidates.recordStandardBoundingBox(parsed, replaceExisting: false)
+                candidates.recordStandardBoundingBox(parsed)
             }
 
             if candidates.hiResBoundingBox != nil {
