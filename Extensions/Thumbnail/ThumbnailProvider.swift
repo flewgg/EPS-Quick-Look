@@ -54,7 +54,7 @@ final class ThumbnailProvider: QLThumbnailProvider {
         do {
             let renderer = GhostscriptDocumentRenderer()
             let renderedPage = try renderer.renderFirstPage(for: request.fileURL)
-            let replySize = normalizedReplySize(request.maximumSize, fallback: renderedPage.pageRect.size)
+            let replySize = normalizedReplySize(request.maximumSize, contentSize: renderedPage.pageRect.size)
 
             let imageURL = try rasterizedThumbnailImageURL(
                 for: renderedPage,
@@ -69,16 +69,13 @@ final class ThumbnailProvider: QLThumbnailProvider {
         }
     }
 
-    private func normalizedReplySize(_ requestedSize: CGSize, fallback: CGSize) -> CGSize {
-        if requestedSize.width > 0, requestedSize.height > 0 {
-            return requestedSize
+    private func normalizedReplySize(_ requestedSize: CGSize, contentSize: CGSize) -> CGSize {
+        guard requestedSize.width > 0, requestedSize.height > 0 else {
+            return contentSize
         }
 
-        if fallback.width > 0, fallback.height > 0 {
-            return fallback
-        }
-
-        return CGSize(width: 1, height: 1)
+        let scale = min(requestedSize.width / contentSize.width, requestedSize.height / contentSize.height)
+        return CGSize(width: contentSize.width * scale, height: contentSize.height * scale)
     }
 
     private func rasterizedThumbnailImageURL(
@@ -106,12 +103,7 @@ final class ThumbnailProvider: QLThumbnailProvider {
         }
 
         let targetRect = CGRect(x: 0, y: 0, width: CGFloat(pixelWidth), height: CGFloat(pixelHeight))
-        let transform = pageRef.getDrawingTransform(
-            renderedPage.displayBox.cgPDFBox,
-            rect: targetRect,
-            rotate: 0,
-            preserveAspectRatio: true
-        )
+        let pageRect = renderedPage.pageRect
 
         context.interpolationQuality = .high
         context.setAllowsAntialiasing(true)
@@ -119,7 +111,8 @@ final class ThumbnailProvider: QLThumbnailProvider {
         context.setFillColor(CGColor(gray: 1, alpha: 1))
         context.fill(targetRect)
         context.saveGState()
-        context.concatenate(transform)
+        context.scaleBy(x: targetRect.width / pageRect.width, y: targetRect.height / pageRect.height)
+        context.translateBy(x: -pageRect.minX, y: -pageRect.minY)
         context.drawPDFPage(pageRef)
         context.restoreGState()
 

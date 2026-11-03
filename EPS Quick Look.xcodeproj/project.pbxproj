@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		734D01082F90000000A0D6EC /* parser in Resources */ = {isa = PBXBuildFile; fileRef = 734D010A2F90000000A0D6EC /* parser */; };
 		734D01092F90000000A0D6EC /* parser in Resources */ = {isa = PBXBuildFile; fileRef = 734D010A2F90000000A0D6EC /* parser */; };
+		734D010B2F90000000A0D6EC /* parser in Resources */ = {isa = PBXBuildFile; fileRef = 734D010A2F90000000A0D6EC /* parser */; };
 		7368C4E32F822A4500EC9C77 /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7368C4E22F822A4500EC9C77 /* QuickLookThumbnailing.framework */; };
 		7368C4E42F822A4500EC9C77 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D8840C2F7FF1E9009B0644 /* Quartz.framework */; };
 		7368C4EB2F822A4500EC9C77 /* EPS Thumbnail Generator.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7368C4E12F822A4500EC9C77 /* EPS Thumbnail Generator.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -77,13 +78,6 @@
 			);
 			target = 73D883F52F7FEAD8009B0644 /* EPS Quick Look */;
 		};
-		734D010E2F90000000A0D6EC /* Exceptions for "Shared" folder in "EPS Quick Look Tests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				GhostscriptDocumentRenderer.swift,
-			);
-			target = 73A100012F9C000000000001 /* EPS Quick Look Tests */;
-		};
 		7368C4EE2F822A4500EC9C77 /* Exceptions for "Thumbnail" folder in "EPS Thumbnail Generator" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -105,7 +99,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				734D010D2F90000000A0D6EC /* Exceptions for "Shared" folder in "EPS Quick Look" target */,
-				734D010E2F90000000A0D6EC /* Exceptions for "Shared" folder in "EPS Quick Look Tests" target */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -391,6 +384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				734D010B2F90000000A0D6EC /* parser in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
