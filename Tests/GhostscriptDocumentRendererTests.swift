@@ -321,6 +321,27 @@ final class GhostscriptDocumentRendererTests: XCTestCase {
         }
     }
 
+    func testPageDeviceChangesKeepBoundingBoxPlacement() throws {
+        for setup in [
+            "<</PageOffset [0 0]>> setpagedevice",
+            "[ /CropBox [10 10 230 110] /PAGES pdfmark",
+            "[ /CropBox [100 200 340 320] /PAGES pdfmark",
+        ] {
+            for origin in [CGPoint(x: 100, y: 200), CGPoint(x: -100, y: -60)] {
+                let art = CGRect(origin: origin, size: CGSize(width: 240, height: 120))
+                try assertArtFillsPage(Sample(
+                    name: "\(setup), \(origin)",
+                    contents: eps(
+                        comments: ["%%BoundingBox: \(art.minX) \(art.minY) \(art.maxX) \(art.maxY)"],
+                        setup: [setup],
+                        art: art
+                    ),
+                    expectedSize: art.size
+                ))
+            }
+        }
+    }
+
     func testFirstBoundingBoxInHeaderIsUsed() throws {
         let art = CGRect(x: 100, y: 150, width: 200, height: 300)
 

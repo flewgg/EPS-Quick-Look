@@ -25,17 +25,12 @@ private struct NormalizedPDFOutput {
     let contentSize: CGSize
 }
 
-private enum PDFNormalizationStrategy {
-    case pdfDisplayBox(displayBox: PDFDisplayBox, rect: CGRect)
-    case epsBoundingBox(EPSBoundingBox)
+private struct PDFNormalizationStrategy {
+    let displayBox: PDFDisplayBox
+    let rect: CGRect
 
     var contentSize: CGSize {
-        switch self {
-        case let .pdfDisplayBox(_, rect):
-            return rect.size
-        case let .epsBoundingBox(boundingBox):
-            return boundingBox.size
-        }
+        rect.size
     }
 }
 
@@ -244,12 +239,13 @@ final class GhostscriptDocumentRenderer {
             return ["-dEPSCrop"]
         }
 
+        let pageOffset = "[\(-rect.minX) \(-rect.minY)]"
         return [
             "-dDEVICEWIDTHPOINTS=\(rect.width)",
             "-dDEVICEHEIGHTPOINTS=\(rect.height)",
             "-dFIXEDMEDIA",
             "-c",
-            "<</PageOffset [\(-rect.minX) \(-rect.minY)]>> setpagedevice",
+            "<</PageOffset \(pageOffset) /ViewerPreProcess { dup length 1 add dict copy dup /PageOffset \(pageOffset) put } bind>> setpagedevice",
             "-f",
         ]
     }
@@ -297,17 +293,14 @@ final class GhostscriptDocumentRenderer {
         for page: PDFPage,
         sourceBoundingBox: EPSBoundingBox?
     ) -> PDFNormalizationStrategy? {
-        let (displayBox, pageRect) = preferredDisplayBox(for: page)
+        let (displayBox, pageRect) = sourceBoundingBox == nil
+            ? preferredDisplayBox(for: page)
+            : (.mediaBox, normalizedRect(page.bounds(for: .mediaBox)))
         guard pageRect.width > 0, pageRect.height > 0 else {
             return nil
         }
 
-        if let sourceBoundingBox,
-           !sizesApproximatelyEqual(pageRect.size, sourceBoundingBox.size) {
-            return .epsBoundingBox(sourceBoundingBox)
-        }
-
-        return .pdfDisplayBox(displayBox: displayBox, rect: pageRect)
+        return PDFNormalizationStrategy(displayBox: displayBox, rect: pageRect)
     }
 
     private func pdfContentSize(
@@ -374,23 +367,15 @@ final class GhostscriptDocumentRenderer {
         context.beginPDFPage(pageInfo as CFDictionary)
         context.saveGState()
 
-        switch strategy {
-        case let .pdfDisplayBox(displayBox, rect):
-            let targetRect = CGRect(origin: .zero, size: rect.size)
-            let transform = pageRef.getDrawingTransform(
-                displayBox.cgPDFBox,
-                rect: targetRect,
-                rotate: 0,
-                preserveAspectRatio: true
-            )
-            context.concatenate(transform)
-            context.drawPDFPage(pageRef)
-        case let .epsBoundingBox(boundingBox):
-            let targetRect = CGRect(origin: .zero, size: boundingBox.size)
-            context.clip(to: targetRect)
-            context.translateBy(x: -boundingBox.rect.origin.x, y: -boundingBox.rect.origin.y)
-            context.drawPDFPage(pageRef)
-        }
+        let targetRect = CGRect(origin: .zero, size: strategy.rect.size)
+        let transform = pageRef.getDrawingTransform(
+            strategy.displayBox.cgPDFBox,
+            rect: targetRect,
+            rotate: 0,
+            preserveAspectRatio: true
+        )
+        context.concatenate(transform)
+        context.drawPDFPage(pageRef)
 
         context.restoreGState()
         context.endPDFPage()
@@ -401,11 +386,6 @@ final class GhostscriptDocumentRenderer {
 
     private func normalizedRect(_ rect: CGRect) -> CGRect {
         rect.standardized
-    }
-
-    private func sizesApproximatelyEqual(_ lhs: CGSize, _ rhs: CGSize, tolerance: CGFloat = 1) -> Bool {
-        abs(lhs.width - rhs.width) <= tolerance &&
-        abs(lhs.height - rhs.height) <= tolerance
     }
 
 }
