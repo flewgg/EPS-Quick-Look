@@ -150,6 +150,170 @@ final class EPSBoundingBoxParserTests: XCTestCase {
         XCTAssertNil(EPSBoundingBoxParser.parseBoundingBoxRect(from: "%%BoundingBox: nope 0 10 10", prefix: "%%BoundingBox:"))
     }
 
+    func testBoundingBoxRectRejectsNonfiniteCoordinatesAndOverflowingDimensions() {
+        for values in [
+            "0 0 inf 100",
+            "-inf 0 100 100",
+            "0 -inf 100 100",
+            "0 0 100 inf",
+            "nan 0 100 100",
+            "-1e308 0 1e308 100",
+            "0 -1e308 100 1e308",
+        ] {
+            XCTAssertNil(EPSBoundingBoxParser.parseBoundingBoxRect(from: "%%BoundingBox: \(values)", prefix: "%%BoundingBox:"), values)
+        }
+    }
+
+    func testBoundingBoxRectPreservesSubpointDimensions() {
+        let rect = EPSBoundingBoxParser.parseBoundingBoxRect(
+            from: "%%HiResBoundingBox: -0.125 0.25 0.125 0.75",
+            prefix: "%%HiResBoundingBox:"
+        )
+
+        XCTAssertEqual(rect, CGRect(x: -0.125, y: 0.25, width: 0.25, height: 0.5))
+    }
+
+    func testFileParserReadsDeferredHiResBoxWhenStandardHeaderBoxIsAvailable() throws {
+        let boundingBox = try parseFile(data("""
+        %!PS-Adobe-3.0 EPSF-3.0
+        %%BoundingBox: 99 99 201 201
+        %%HiResBoundingBox: (atend)
+        %%EndComments
+        showpage
+        %%Trailer
+        %%HiResBoundingBox: 100.25 100.25 199.75 199.75
+        """))
+
+        XCTAssertEqual(boundingBox?.rect, CGRect(x: 100.25, y: 100.25, width: 99.5, height: 99.5))
+    }
+
+    func testFileParserKeepsHeaderHiResBoxWhenStandardBoxIsDeferred() throws {
+        let boundingBox = try parseFile(data("""
+        %!PS-Adobe-3.0 EPSF-3.0
+        %%BoundingBox: (atend)
+        %%HiResBoundingBox: 100.25 100.25 199.75 199.75
+        %%EndComments
+        showpage
+        %%Trailer
+        %%BoundingBox: 99 99 201 201
+        %%HiResBoundingBox: 0 0 10 10
+        """))
+
+        XCTAssertEqual(boundingBox?.rect, CGRect(x: 100.25, y: 100.25, width: 99.5, height: 99.5))
+    }
+
+    func testFileParserFallsBackToHeaderStandardBoxWhenDeferredHiResBoxIsMissing() throws {
+        let boundingBox = try parseFile(data("""
+        %!PS-Adobe-3.0 EPSF-3.0
+        %%BoundingBox: 99 99 201 201
+        %%HiResBoundingBox: (atend)
+        %%EndComments
+        showpage
+        %%Trailer
+        %%BoundingBox: 0 0 10 10
+        """))
+
+        XCTAssertEqual(boundingBox?.rect, CGRect(x: 99, y: 99, width: 102, height: 102))
+    }
+
+    func testFileParserKeepsFirstDeferredHeaderDeclarations() throws {
+        let boundingBox = try parseFile(data("""
+        %!PS-Adobe-3.0 EPSF-3.0
+        %%BoundingBox: (atend)
+        %%HiResBoundingBox: (atend)
+        %%BoundingBox: 0 0 10 10
+        %%HiResBoundingBox: 0 0 10 10
+        %%EndComments
+        showpage
+        %%Trailer
+        %%BoundingBox: 99 99 201 201
+        %%HiResBoundingBox: 100.25 100.25 199.75 199.75
+        """))
+
+        XCTAssertEqual(boundingBox?.rect, CGRect(x: 100.25, y: 100.25, width: 99.5, height: 99.5))
+    }
+
+    func testFileParserIgnoresBoundingBoxesInDOSPreviewBeforePostScript() throws {
+        let postScript = data("""
+        %!PS-Adobe-3.0 EPSF-3.0
+        %%BoundingBox: 100 150 300 450
+        %%EndComments
+        showpage
+        """)
+        let preview = data("\n%%BoundingBox: 0 0 10 10\n%%EndComments\n")
+
+        let boundingBox = try parseFile(dosEPS(postScript: postScript, preview: preview, previewFirst: true))
+
+        XCTAssertEqual(boundingBox?.rect, CGRect(x: 100, y: 150, width: 200, height: 300))
+    }
+
+    func testFileParserFindsDOSHeaderBeyondPreviewWithLargePostScriptBody() throws {
+        let postScript = data("%!PS-Adobe-3.0 EPSF-3.0\n%%BoundingBox: -100 -150 100 150\n%%EndComments\n%")
+            + Data(repeating: 120, count: 300_000)
+            + data("\nshowpage\n%%EOF\n")
+
+        let boundingBox = try parseFile(dosEPS(
+            postScript: postScript,
+            preview: Data(repeating: 0, count: 100_000),
+            previewFirst: true
+        ))
+
+        XCTAssertEqual(boundingBox?.rect, CGRect(x: -100, y: -150, width: 200, height: 300))
+    }
+
+    func testFileParserBoundsTrailerLookupToDOSPostScriptSection() throws {
+        let postScript = data("""
+        %!PS-Adobe-3.0 EPSF-3.0
+        %%BoundingBox: (atend)
+        %%EndComments
+        showpage
+        %%Trailer
+        %%BoundingBox: 100 150 300 450
+        %%EOF
+        """)
+        let preview = data("\n%%Trailer\n%%HiResBoundingBox: 0 0 10 10\n")
+
+        let boundingBox = try parseFile(dosEPS(postScript: postScript, preview: preview, previewFirst: false))
+
+        XCTAssertEqual(boundingBox?.rect, CGRect(x: 100, y: 150, width: 200, height: 300))
+    }
+
+    func testFileParserRejectsInvalidDOSPostScriptRanges() throws {
+        let postScript = data("%!PS-Adobe-3.0 EPSF-3.0\n%%BoundingBox: 0 0 100 100\n")
+        let validDocument = dosEPS(postScript: postScript, preview: Data(), previewFirst: false)
+        XCTAssertThrowsError(try parseFile(validDocument.prefix(12)))
+
+        for (offset, length) in [(UInt32(0), UInt32(10)), (30, 0), (UInt32.max, 10), (30, UInt32.max)] {
+            var document = validDocument
+            var invalidOffset = offset.littleEndian
+            var invalidLength = length.littleEndian
+            withUnsafeBytes(of: &invalidOffset) { document.replaceSubrange(4..<8, with: $0) }
+            withUnsafeBytes(of: &invalidLength) { document.replaceSubrange(8..<12, with: $0) }
+            XCTAssertThrowsError(try parseFile(document), "offset \(offset), length \(length)")
+        }
+    }
+
+    private func parseFile(_ contents: Data) throws -> EPSBoundingBox? {
+        let fileURL = temporaryFileURL()
+        try contents.write(to: fileURL)
+        defer { try? FileManager.default.removeItem(at: fileURL) }
+        return try EPSBoundingBoxParser.boundingBox(for: fileURL)
+    }
+
+    private func dosEPS(postScript: Data, preview: Data, previewFirst: Bool) -> Data {
+        let headerLength = 30
+        let postScriptOffset = previewFirst ? headerLength + preview.count : headerLength
+        let previewOffset = previewFirst ? headerLength : headerLength + postScript.count
+        var document = Data([0xC5, 0xD0, 0xD3, 0xC6])
+        for field in [postScriptOffset, postScript.count, 0, 0, previewOffset, preview.count] {
+            withUnsafeBytes(of: UInt32(field).littleEndian) { document.append(contentsOf: $0) }
+        }
+        document.append(contentsOf: [0xFF, 0xFF])
+        document.append(previewFirst ? preview : postScript)
+        document.append(previewFirst ? postScript : preview)
+        return document
+    }
+
     private func data(_ string: String) -> Data {
         Data(string.utf8)
     }

@@ -240,32 +240,17 @@ final class GhostscriptDocumentRenderer {
     }
 
     private func pagePlacementArguments(for boundingBox: EPSBoundingBox?) -> [String] {
-        if let rect = boundingBox?.rect,
-           rect.minX < 0 || rect.minY < 0 {
-            return [
-                "-dDEVICEWIDTHPOINTS=\(rect.width)",
-                "-dDEVICEHEIGHTPOINTS=\(rect.height)",
-                "-dFIXEDMEDIA",
-                "-c",
-                "<</PageOffset [\(-rect.minX) \(-rect.minY)]>> setpagedevice",
-                "-f",
-            ]
+        guard let rect = boundingBox?.rect else {
+            return ["-dEPSCrop"]
         }
 
-        return ["-dEPSCrop"] + fallbackPageSizeArguments(for: boundingBox)
-    }
-
-    private func fallbackPageSizeArguments(for boundingBox: EPSBoundingBox?) -> [String] {
-        guard let boundingBox, boundingBox.rect.maxX > 0, boundingBox.rect.maxY > 0 else {
-            return []
-        }
-
-        let maximumPageDimension: CGFloat = 14400
-        let width = Int(min(boundingBox.rect.maxX.rounded(.up), maximumPageDimension))
-        let height = Int(min(boundingBox.rect.maxY.rounded(.up), maximumPageDimension))
         return [
-            "-dDEVICEWIDTHPOINTS=\(width)",
-            "-dDEVICEHEIGHTPOINTS=\(height)",
+            "-dDEVICEWIDTHPOINTS=\(rect.width)",
+            "-dDEVICEHEIGHTPOINTS=\(rect.height)",
+            "-dFIXEDMEDIA",
+            "-c",
+            "<</PageOffset [\(-rect.minX) \(-rect.minY)]>> setpagedevice",
+            "-f",
         ]
     }
 

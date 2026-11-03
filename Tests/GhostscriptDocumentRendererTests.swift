@@ -201,6 +201,126 @@ final class GhostscriptDocumentRendererTests: XCTestCase {
         ].forEach(assertArtFillsPage)
     }
 
+    func testPositiveOriginsUseFixedBoundingBoxMedia() throws {
+        let samples: [(String, CGRect, [String])] = [
+            ("File that sets a smaller page size", CGRect(x: 100, y: 200, width: 2400, height: 1200), ["<</PageSize [612 792]>> setpagedevice"]),
+            ("Origin beyond 14400pt", CGRect(x: 15000, y: 15000, width: 240, height: 120), []),
+            ("Artwork beyond 14400pt", CGRect(x: 100, y: 200, width: 18000, height: 9000), []),
+        ]
+
+        for (name, art, setup) in samples {
+            for firstLine in ["%!PS-Adobe-3.0", "%!PS-Adobe-3.0 EPSF-3.0"] {
+                try assertArtFillsPage(Sample(
+                    name: "\(name), \(firstLine)",
+                    contents: eps(
+                        firstLine: firstLine,
+                        comments: ["%%BoundingBox: \(art.minX) \(art.minY) \(art.maxX) \(art.maxY)"],
+                        setup: setup,
+                        art: art
+                    ),
+                    expectedSize: art.size
+                ))
+            }
+        }
+    }
+
+    func testPostScriptWithoutBoundingBoxKeepsItsPageSize() throws {
+        let art = CGRect(x: 0, y: 0, width: 240, height: 120)
+        try assertArtFillsPage(Sample(
+            name: "PostScript without a bounding box",
+            contents: eps(
+                firstLine: "%!PS-Adobe-3.0",
+                comments: [],
+                setup: ["<</PageSize [240 120]>> setpagedevice"],
+                art: art
+            ),
+            expectedSize: art.size
+        ))
+    }
+
+    func testBinaryPreviewCannotOverridePostScriptBoundingBox() throws {
+        let art = CGRect(x: 100, y: 150, width: 200, height: 300)
+        let postScript = eps(
+            firstLine: "%!PS-Adobe-3.0",
+            comments: ["%%BoundingBox: 100 150 300 450"],
+            art: art
+        )
+        let preview = Data("\n%%BoundingBox: 0 0 10 10\n%%EndComments\n".utf8) + previewBytes(count: 102_400)
+
+        try assertArtFillsPage(Sample(
+            name: "Bounding box text in a binary preview",
+            contents: dosEPS(postScript: postScript, preview: preview, previewFirst: true),
+            expectedSize: art.size
+        ))
+    }
+
+    func testDeferredHiResBoundingBoxOverridesHeaderStandardBox() throws {
+        let art = CGRect(x: 100.2, y: 100.2, width: 99.6, height: 99.6)
+        try assertArtFillsPage(Sample(
+            name: "Deferred high-resolution bounds",
+            contents: eps(
+                comments: ["%%BoundingBox: 99 99 201 201", "%%HiResBoundingBox: (atend)"],
+                art: art,
+                trailer: ["%%HiResBoundingBox: 100.2 100.2 199.8 199.8"]
+            ),
+            expectedSize: art.size
+        ))
+    }
+
+    func testSubpointArtworkKeepsItsExactSize() throws {
+        let art = CGRect(x: 0, y: 0, width: 0.25, height: 0.5)
+        try assertArtFillsPage(Sample(
+            name: "Subpoint artwork",
+            contents: eps(comments: ["%%BoundingBox: 0 0 1 1", "%%HiResBoundingBox: 0 0 0.25 0.5"], art: art),
+            expectedSize: art.size
+        ))
+    }
+
+    func testColoredArtworkPreservesItsPositionAndOrientation() throws {
+        for firstLine in ["%!PS-Adobe-3.0", "%!PS-Adobe-3.0 EPSF-3.0"] {
+            for origin in [CGPoint(x: 100, y: 200), CGPoint(x: -100, y: -60)] {
+                let fileURL = try write(Data("""
+                \(firstLine)
+                %%BoundingBox: \(origin.x) \(origin.y) \(origin.x + 240) \(origin.y + 120)
+                %%EndComments
+                <</PageSize [612 792]>> setpagedevice
+                1 0 0 setrgbcolor \(origin.x) \(origin.y) 120 60 rectfill
+                0 1 0 setrgbcolor \(origin.x + 120) \(origin.y) 120 60 rectfill
+                0 0 1 setrgbcolor \(origin.x) \(origin.y + 60) 120 60 rectfill
+                1 0 1 setrgbcolor \(origin.x + 120) \(origin.y + 60) 120 60 rectfill
+                showpage
+                """.utf8))
+                let preview = try GhostscriptDocumentRenderer().renderPDFPreview(for: fileURL)
+                removeAfterTest(preview.url.deletingLastPathComponent())
+                let document = try XCTUnwrap(CGPDFDocument(preview.url as CFURL))
+                let page = try XCTUnwrap(document.page(at: 1))
+                let context = try XCTUnwrap(CGContext(
+                    data: nil,
+                    width: 240,
+                    height: 120,
+                    bitsPerComponent: 8,
+                    bytesPerRow: 240 * 4,
+                    space: CGColorSpace(name: CGColorSpace.sRGB)!,
+                    bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+                ))
+                context.drawPDFPage(page)
+                let pixels = try XCTUnwrap(context.data).bindMemory(to: UInt8.self, capacity: 240 * 120 * 4)
+                let samples: [(Int, Int, [UInt8])] = [
+                    (60, 30, [0, 0, 255]),
+                    (180, 30, [255, 0, 255]),
+                    (60, 90, [255, 0, 0]),
+                    (180, 90, [0, 255, 0]),
+                ]
+                for (x, y, expected) in samples {
+                    let offset = (y * 240 + x) * 4
+                    for channel in 0..<3 {
+                        XCTAssertLessThanOrEqual(abs(Int(pixels[offset + channel]) - Int(expected[channel])), 2, "\(firstLine), \(origin), pixel \(x),\(y), channel \(channel)")
+                    }
+                }
+            }
+        }
+    }
+
     func testFirstBoundingBoxInHeaderIsUsed() throws {
         let art = CGRect(x: 100, y: 150, width: 200, height: 300)
 
@@ -246,8 +366,8 @@ final class GhostscriptDocumentRendererTests: XCTestCase {
         let preview = try GhostscriptDocumentRenderer().renderPDFPreview(for: fileURL)
         removeAfterTest(preview.url.deletingLastPathComponent())
 
-        XCTAssertEqual(preview.contentSize.width, sample.expectedSize.width, accuracy: 0.5, sample.name)
-        XCTAssertEqual(preview.contentSize.height, sample.expectedSize.height, accuracy: 0.5, sample.name)
+        XCTAssertEqual(preview.contentSize.width, sample.expectedSize.width, accuracy: 0.01, sample.name)
+        XCTAssertEqual(preview.contentSize.height, sample.expectedSize.height, accuracy: 0.01, sample.name)
         XCTAssertGreaterThan(try inkCoverage(ofPDFAt: preview.url), 0.99, sample.name)
     }
 
@@ -255,7 +375,7 @@ final class GhostscriptDocumentRendererTests: XCTestCase {
         let document = try XCTUnwrap(CGPDFDocument(url as CFURL))
         let page = try XCTUnwrap(document.page(at: 1))
         let box = page.getBoxRect(.mediaBox)
-        let scale = min(2, 1000 / max(box.width, box.height))
+        let scale = 1000 / max(box.width, box.height)
         let width = Int((box.width * scale).rounded(.up))
         let height = Int((box.height * scale).rounded(.up))
         let context = try XCTUnwrap(CGContext(
