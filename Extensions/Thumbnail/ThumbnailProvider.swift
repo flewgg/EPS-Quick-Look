@@ -1,5 +1,6 @@
 import CoreGraphics
 import ImageIO
+import os
 import PDFKit
 import QuickLookThumbnailing
 import UniformTypeIdentifiers
@@ -47,6 +48,8 @@ private enum ThumbnailGenerationError: LocalizedError, CustomNSError {
 }
 
 final class ThumbnailProvider: QLThumbnailProvider {
+    private static let logger = Logger(subsystem: "gg.flew.eps", category: "Thumbnail")
+
     override func provideThumbnail(
         for request: QLFileThumbnailRequest,
         _ handler: @escaping (QLThumbnailReply?, Error?) -> Void
@@ -65,6 +68,7 @@ final class ThumbnailProvider: QLThumbnailProvider {
 
             handler(reply, nil)
         } catch {
+            Self.logger.error("Thumbnail failed: \(error.renderFailureSummary, privacy: .public)")
             handler(nil, error)
         }
     }
